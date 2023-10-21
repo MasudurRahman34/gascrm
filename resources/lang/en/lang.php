@@ -56,6 +56,7 @@ return [
 
     'Leads' => 'Leads',
     'AddNewLead' => 'Add New Lead',
+    'ImportLead' => 'Import Lead',
     'AllLeads' => 'All Leads',
     'TodayLeads' => 'Today\'s Leads',
 

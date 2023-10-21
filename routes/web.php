@@ -50,7 +50,11 @@ Route::group(['namespace' => 'App\Http\Controllers\Admin', 'middleware' => ['aut
     Route::post('lead/status-change', 'LeadController@statusChange')->name('lead.status-change');
     Route::post('lead/bulk-update', 'LeadController@bulkUpdate')->name('lead.bulk-update');
     Route::get('lead/printable-view/{leadId}', 'LeadController@printable')->name('lead.printable');
+    Route::get('lead/import', 'LeadController@import')->name('lead.import');
+    Route::post('upload/import', 'LeadController@uploadImport')->name('upload.import');
     Route::resource('lead', 'LeadController');
+   
+
     
     Route::post('account/follow/{accountId}', 'AccountController@follow')->name('account.follow');
     Route::post('account/owner-change/{accountId}', 'AccountController@ownerChange')->name('account.owner-change');

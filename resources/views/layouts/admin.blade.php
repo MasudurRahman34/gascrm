@@ -134,6 +134,11 @@
                                         <span class="hide-menu">{{ __('lang.AddNewLead') }}</span>
                                     </a>
                                 </li>
+                                <li class="sidebar-item {{ Request::routeIs('lead.import') ? 'active' : ''}}">
+                                    <a class="sidebar-link" href="{{ route('lead.import') }}">
+                                        <span class="hide-menu">{{ __('lang.ImportLead') }}</span>
+                                    </a>
+                                </li>
                                 <li class="sidebar-item {{ Request::routeIs('lead.index') ? 'active' : ''}}">
                                     <a class="sidebar-link" href="{{ route('lead.index') }}">
                                         <span class="hide-menu">{{ __('lang.AllLeads') }}</span>

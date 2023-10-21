@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use App\Imports\LeadsImport;
+use Maatwebsite\Excel\Facades\Excel;
 class LeadController extends Controller {
 
     public function index(Request $request)
@@ -56,6 +57,24 @@ class LeadController extends Controller {
         }
 
         return $this->index($request);
+    }
+
+    public function import(Request $request)
+    {
+        
+        if (!Auth::user()->can('add lead')) {
+            return view('errors.403');
+        }
+
+        return view('admin.lead.import');
+    }
+
+    public function uploadImport(Request $request)
+    {
+        
+        Excel::import(new LeadsImport, $request->import);
+
+        return redirect()->route('lead.import')->with('success', 'User Imported Successfully');
     }
 
     public function store(Request $request)
