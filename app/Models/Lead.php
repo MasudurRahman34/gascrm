@@ -13,6 +13,7 @@ class Lead extends Model
 
     protected $fillable = [
         'owner_id', 'lead_status_id', 'salutation', 'first_name', 'last_name', 'name', 'company', 'mobile', 'email', 'website', 'title', 'rating_id', 'follow_up', 'address_street', 'address_city', 'address_state', 'address_postalcode', 'address_country', 'info_employees', 'info_revenue', 'source_id', 'industry_id', 'description', 'is_completed', 'is_converted', 'status', 'created_by', 'updated_by',
+        'utility_type','supplier','spend_amount','contract_start_date','is_new_business','period'
     ];
 
     protected $appends = [

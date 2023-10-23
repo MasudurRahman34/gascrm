@@ -1,0 +1,11 @@
+ALTER TABLE `leads`
+	ADD COLUMN `utility_type` VARCHAR(100) NULL DEFAULT NULL COMMENT 'utility_type_frontend' AFTER `deleted_at`;
+    ALTER TABLE `leads`
+	CHANGE COLUMN `utility_type` `utility_type` VARCHAR(100) NULL DEFAULT NULL COMMENT 'frontend' COLLATE 'utf8mb4_unicode_ci' AFTER `deleted_at`,
+	ADD COLUMN `supplier` VARCHAR(255) NULL DEFAULT NULL COMMENT 'frontend' AFTER `utility_type`,
+	ADD COLUMN `spend_amount` FLOAT NULL DEFAULT NULL COMMENT 'frontend' AFTER `supplier`,
+	ADD COLUMN `contract_start_date` DATE NULL DEFAULT NULL COMMENT 'frontend' AFTER `spend_amount`,
+	ADD COLUMN `is_new_business` ENUM('Yes','No','None') NULL DEFAULT 'None' COMMENT 'frontend' AFTER `contract_start_date`,
+	ADD COLUMN `period` VARCHAR(100) NULL DEFAULT NULL COMMENT 'frontend' AFTER `is_new_business`;
+    ALTER TABLE `leads`
+	CHANGE COLUMN `last_name` `last_name` VARCHAR(255) NULL DEFAULT NULL COLLATE 'utf8mb4_unicode_ci' AFTER `first_name`;

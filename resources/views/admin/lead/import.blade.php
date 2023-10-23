@@ -30,12 +30,13 @@
             </div>
         </div>
         <div class='page-content container-fluid'>
+        
             <div class='card'>
                 <div class='card-header'>
-
+ Exel column name must need to match
                 </div>
                 <div class='body'>
-                    <form action="{{ route('upload.import') }}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('upload.import') }}" method="POST" enctype="multipart/form-data" class='ml-3 mb-3'>
                         
                         @csrf
                         <div class="form-group">
@@ -46,7 +47,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+    </div>
 
         <!-- Store/Update Modal -->
         @if(auth()->user()->can('add lead') || auth()->user()->can('edit lead'))

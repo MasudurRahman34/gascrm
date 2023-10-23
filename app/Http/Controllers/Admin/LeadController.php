@@ -73,33 +73,38 @@ class LeadController extends Controller {
     {
         
         Excel::import(new LeadsImport, $request->import);
+        return response()->json(['status' => true, 'successMessage' => 'Lead was successfully updated!'], 200);
 
-        return redirect()->route('lead.import')->with('success', 'User Imported Successfully');
+         //return redirect()->route('lead.import')->with('success', 'User Imported Successfully');
     }
 
     public function store(Request $request)
     {
-        if (!Auth::user()->can('add lead')) {
-            return response()->json(['status' => false, 'errorMessage' => 'Unauthorized Access!'], 401);
+      
+        if(!$request->wantsJson()){
+            if (!Auth::user()->can('add lead')) {
+                return response()->json(['status' => false, 'errorMessage' => 'Unauthorized Access!'], 401);
+            }
         }
+        
 
-        $validator = Validator::make($request->only('lead_status_id', 'last_name', 'company'), [
+        $validator = Validator::make($request->only('lead_status_id', 'company'), [
             'lead_status_id' => 'required|numeric',
-            'last_name' => 'required|max:255',
             'company' => 'required|max:255',
         ]);
 
         if ($validator->fails()) {
             return response()->json(['status' => false, 'errorMessage' => implode(", " , $validator->messages()->all())], 200);
         }
+        
 
         $storeData = [
-            'owner_id' => Auth::user()->id,
+            'owner_id' => isset(Auth::user()->id) ? Auth::user()->id : 0,
             'lead_status_id' => $request->lead_status_id,
             'salutation' => $request->salutation,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'name' => trim($request->first_name.' '.$request->last_name),
+            'name' => isset($request->name) ? $request->name : trim($request->first_name.' '.$request->last_name),
             'company' => $request->company,
             'mobile' => $request->mobile,
             'email' => $request->email,
@@ -110,16 +115,26 @@ class LeadController extends Controller {
             'address_street' => $request->address_street,
             'address_city' => $request->address_city,
             'address_state' => $request->address_state,
-            'address_postalcode' => $request->address_postalcode,
+            'address_postalcode' => $request->address_postalcode, 
             'address_country' => $request->address_country,
             'info_employees' => $request->info_employees,
             'info_revenue' => $request->info_revenue,
             'source_id' => $request->source_id,
             'industry_id' => $request->industry_id,
             'description' => $request->description,
-            'created_by' => Auth::user()->id,
-            'updated_by' => Auth::user()->id,
+            'created_by' => isset(Auth::user()->id) ? Auth::user()->id:0 ,
+            'updated_by' => isset(Auth::user()->id) ? Auth::user()->id:0 ,
+
+            //frontend
+            'utility_type' => $request->utility_type,
+            'supplier' => $request->supplier,
+            'spend_amount' => $request->spend_amount,
+            'contract_start_date' => $request->contract_start_date,
+            'is_new_business' => $request->is_new_business,
+            'period' => $request->period,
+
         ];
+     
         Lead::create($storeData);
         
         return response()->json(['status' => true, 'successMessage' => 'Lead was successfully added!'], 200);
@@ -250,6 +265,13 @@ class LeadController extends Controller {
             'industry_id' => $request->industry_id,
             'description' => $request->description,
             'updated_by' => Auth::user()->id,
+            //frontend
+            'utility_type' => $request->utility_type,
+            'supplier' => $request->supplier,
+            'spend_amount' => $request->spend_amount,
+            'contract_start_date' => $request->contract_start_date,
+            'is_new_business' => $request->is_new_business,
+            'period' => $request->period,
         ];
 
         $data->update($storeData);
