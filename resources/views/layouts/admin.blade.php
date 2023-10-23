@@ -354,6 +354,7 @@
         </aside>
 
         <div class="page-wrapper" id="app">
+        @include('layouts/flash-msg')
             @yield('content')
 
             <footer class="footer text-center">

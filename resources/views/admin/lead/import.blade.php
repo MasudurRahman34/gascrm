@@ -33,7 +33,9 @@
         
             <div class='card'>
                 <div class='card-header'>
- Exel column name must need to match
+ Excel column name must unprotected and need to match column name with 'salutation, 
+ first name, last name, fullname, business name, mobile, email,website,title,
+ address line 1,city,state,postcode,country,description,product,supplier,spend_amount,contract_start_date,period.
                 </div>
                 <div class='body'>
                     <form action="{{ route('upload.import') }}" method="POST" enctype="multipart/form-data" class='ml-3 mb-3'>

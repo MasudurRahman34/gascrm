@@ -71,11 +71,16 @@ class LeadController extends Controller {
 
     public function uploadImport(Request $request)
     {
-        
-        Excel::import(new LeadsImport, $request->import);
-        return response()->json(['status' => true, 'successMessage' => 'Lead was successfully updated!'], 200);
+        try {
+            Excel::import(new LeadsImport, $request->import);
+        } catch (\Throwable $th) {
+            return redirect()->route('lead.import')->with('error', $th->getMessage());
+           
+        }
+       
+        // return response()->json(['status' => true, 'successMessage' => 'Lead was successfully updated!'], 200);
 
-         //return redirect()->route('lead.import')->with('success', 'User Imported Successfully');
+         return redirect()->route('lead.import')->with('success', 'Data Imported Successfully');
     }
 
     public function store(Request $request)
